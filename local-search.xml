@@ -227,11 +227,11 @@
     
     <tags>
       
-      <tag>数学</tag>
-      
       <tag>二分答案</tag>
       
-      <tag>组合数学</tag>
+      <tag>数学</tag>
+      
+      <tag>排列组合</tag>
       
     </tags>
     
@@ -1021,9 +1021,9 @@
     
     <tags>
       
-      <tag>数学</tag>
-      
       <tag>数据结构</tag>
+      
+      <tag>数学</tag>
       
       <tag>线段树</tag>
       
