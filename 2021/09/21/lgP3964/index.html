@@ -14,11 +14,11 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="毒瘤*2">
+  <meta name="description" content="这也能紫？？？">
   <meta name="author" content="Rain">
   <meta name="keywords" content="">
   
-  <title>「NOIP 模拟赛 R5」number - Rain&#39;s blog</title>
+  <title>「洛谷 P3964」松鼠聚会 - Rain&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -179,7 +179,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="「NOIP 模拟赛 R5」number">
+            <span class="h2" id="subtitle" title="「洛谷 P3964」松鼠聚会">
               
             </span>
 
@@ -189,8 +189,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-08-27 21:22" pubdate>
-        2021年8月27日 晚上
+      <time datetime="2021-09-21 13:46" pubdate>
+        2021年9月21日 下午
       </time>
     </span>
   
@@ -201,7 +201,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      0 字
+      376 字
     </span>
   
 
@@ -232,10 +232,19 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">「NOIP 模拟赛 R5」number</h1>
+            <h1 style="display: none">「洛谷 P3964」松鼠聚会</h1>
             
             <div class="markdown-body">
-              
+              <p>首先把切比雪夫距离转化为曼哈顿距离：$(x,y)\to(\dfrac{x+y}{2},\dfrac{x-y}{2})$。<br>之后枚举每个点 $j$ 作为终点，计算距离和。<br>把横坐标之差和纵坐标之差分开考虑：<br>横坐标之差：<br>先按 $x$ 排序，之后计算前缀和 $\textit{sum}$。</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\textit{dis}&=\sum_{i=1}^n |x_i-x_j|\\
+&=\sum_{i=1}^j(x_j-x_i)+\sum_{i=j+1}^n(x_i-x_j)\\
+&=j\cdot x_j-\textit{sum}(i)+\textit{sum}(n)-\textit{sum}(i)-(n-j)\cdot x_j\\
+&=(2j-n)x_j-2\cdot\textit{sum}(i)+\textit{sum}(n)
+\end{aligned}</script><p>纵坐标同理。<br>最后对每个点的答案取 $\min$ 即可。<br>注意开 <code>long long</code>。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;bits/stdc++.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> N 100005</span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span> ll;<br><span class="hljs-keyword">int</span> n;<br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">node</span></span><br><span class="hljs-class">&#123;</span><br>    <span class="hljs-keyword">int</span> x, y, id;<br>&#125; d[N];<br><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">cmpx</span><span class="hljs-params">(node x, node y)</span> </span>&#123; <span class="hljs-keyword">return</span> x.x &lt; y.x; &#125;<br><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">cmpy</span><span class="hljs-params">(node x, node y)</span> </span>&#123; <span class="hljs-keyword">return</span> x.y &lt; y.y; &#125;<br>ll s[N], ans[N], fr = (<span class="hljs-number">1ll</span> &lt;&lt; <span class="hljs-number">62</span>);<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    cin &gt;&gt; n;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>, x, y; i &lt;= n; i++)<br>    &#123;<br>        cin &gt;&gt; x &gt;&gt; y;<br>        d[i].id = i;<br>        d[i].x = x + y, d[i].y = x - y;<br>    &#125;<br>    <span class="hljs-built_in">sort</span>(d + <span class="hljs-number">1</span>, d + n + <span class="hljs-number">1</span>, cmpx);<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++) s[i] = s[i - <span class="hljs-number">1</span>] + d[i].x;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= n; j++)<br>        ans[d[j].id] += <span class="hljs-number">1ll</span> * (<span class="hljs-number">2</span> * j - n) * d[j].x - s[j] * <span class="hljs-number">2</span> + s[n];<br>    <span class="hljs-built_in">sort</span>(d + <span class="hljs-number">1</span>, d + n + <span class="hljs-number">1</span>, cmpy);<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++) s[i] = s[i - <span class="hljs-number">1</span>] + d[i].y;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= n; j++)<br>        ans[d[j].id] += <span class="hljs-number">1ll</span> * (<span class="hljs-number">2</span> * j - n) * d[j].y - s[j] * <span class="hljs-number">2</span> + s[n];<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++) fr = <span class="hljs-built_in">min</span>(fr, ans[i]);<br>    cout &lt;&lt; fr / <span class="hljs-number">2</span>;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+
             </div>
             <hr>
             <div>
@@ -252,11 +261,11 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E4%BA%8C%E5%88%86%E7%AD%94%E6%A1%88/">二分答案</a>
+                      <a class="hover-with-bg" href="/tags/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/">计算几何</a>
                     
-                      <a class="hover-with-bg" href="/tags/%E6%95%B0%E5%AD%A6/">数学</a>
+                      <a class="hover-with-bg" href="/tags/%E8%B7%9D%E7%A6%BB/">距离</a>
                     
-                      <a class="hover-with-bg" href="/tags/%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88/">排列组合</a>
+                      <a class="hover-with-bg" href="/tags/%E5%89%8D%E7%BC%80%E5%92%8C/">前缀和</a>
                     
                   </div>
                 
@@ -273,18 +282,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/08/29/NOIP%E6%A8%A1%E6%8B%9F%E8%B5%9BR6-%E6%80%BB%E7%BB%93/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">「NOIP 模拟赛 R6」赛后总结</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/08/27/NOIP%E6%A8%A1%E6%8B%9F%E8%B5%9BR5-T3/">
-                        <span class="hidden-mobile">「NOIP 模拟赛 R5」mod</span>
+                      <a href="/2021/09/20/30133/">
+                        <span class="hidden-mobile">「#30133」次小生成树</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
