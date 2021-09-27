@@ -14,11 +14,11 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="毒瘤*2">
+  <meta name="description" content="数学 T4">
   <meta name="author" content="Rain">
   <meta name="keywords" content="">
   
-  <title>「NOIP 模拟赛 R5」number - Rain&#39;s blog</title>
+  <title>「Corn#1」评测机 - Rain&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -179,7 +179,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="「NOIP 模拟赛 R5」number">
+            <span class="h2" id="subtitle" title="「Corn#1」评测机">
               
             </span>
 
@@ -189,8 +189,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-08-27 21:22" pubdate>
-        2021年8月27日 晚上
+      <time datetime="2021-09-27 21:20" pubdate>
+        2021年9月27日 晚上
       </time>
     </span>
   
@@ -201,7 +201,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      0 字
+      606 字
     </span>
   
 
@@ -232,10 +232,12 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">「NOIP 模拟赛 R5」number</h1>
+            <h1 style="display: none">「Corn#1」评测机</h1>
             
             <div class="markdown-body">
-              
+              <p>用树链剖分和前缀和维护树上链的 $2,3,5,7,11$ 个数和。<br>直接套用约束和公式即可。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;bits/stdc++.h&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> N 100005</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> int long long</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> mod 20020421</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> IO(x) freopen(x <span class="hljs-meta-string">&quot;.in&quot;</span>, <span class="hljs-meta-string">&quot;r&quot;</span>, stdin), freopen(x <span class="hljs-meta-string">&quot;.out&quot;</span>, <span class="hljs-meta-string">&quot;w&quot;</span>, stdout)</span><br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">node</span></span><br><span class="hljs-class">&#123;</span><br>    <span class="hljs-keyword">int</span> x2 = <span class="hljs-number">0</span>, x3 = <span class="hljs-number">0</span>, x5 = <span class="hljs-number">0</span>, x7 = <span class="hljs-number">0</span>, x11 = <span class="hljs-number">0</span>;<br>    node <span class="hljs-keyword">operator</span>+(<span class="hljs-keyword">const</span> node &amp;x) <span class="hljs-keyword">const</span><br>    &#123;<br>        <span class="hljs-keyword">return</span> &#123;x2 + x.x2, x3 + x.x3, x5 + x.x5, x7 + x.x7, x11 + x.x11&#125;;<br>    &#125;<br>    node <span class="hljs-keyword">operator</span>-(<span class="hljs-keyword">const</span> node &amp;x) <span class="hljs-keyword">const</span><br>    &#123;<br>        <span class="hljs-keyword">return</span> &#123;x2 - x.x2, x3 - x.x3, x5 - x.x5, x7 - x.x7, x11 - x.x11&#125;;<br>    &#125;<br>&#125; a[N], s[N];<br><span class="hljs-keyword">int</span> n, w[N], m;<br><br><span class="hljs-function">node <span class="hljs-title">brk</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">int</span> a = <span class="hljs-number">0</span>, b = <span class="hljs-number">0</span>, c = <span class="hljs-number">0</span>, d = <span class="hljs-number">0</span>, e = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">while</span> (x % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>) a++, x /= <span class="hljs-number">2</span>;<br>    <span class="hljs-keyword">while</span> (x % <span class="hljs-number">3</span> == <span class="hljs-number">0</span>) b++, x /= <span class="hljs-number">3</span>;<br>    <span class="hljs-keyword">while</span> (x % <span class="hljs-number">5</span> == <span class="hljs-number">0</span>) c++, x /= <span class="hljs-number">5</span>;<br>    <span class="hljs-keyword">while</span> (x % <span class="hljs-number">7</span> == <span class="hljs-number">0</span>) d++, x /= <span class="hljs-number">7</span>;<br>    <span class="hljs-keyword">while</span> (x % <span class="hljs-number">11</span> == <span class="hljs-number">0</span>) e++, x /= <span class="hljs-number">11</span>;<br>    <span class="hljs-keyword">return</span> &#123;a, b, c, d, e&#125;;<br>&#125;<br>vector&lt;<span class="hljs-keyword">int</span>&gt; e[N];<br><span class="hljs-keyword">int</span> fa[N], son[N], dep[N], siz[N], top[N], dfn[N], tot;<br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">dfs1</span><span class="hljs-params">(<span class="hljs-keyword">int</span> u)</span></span><br><span class="hljs-function"></span>&#123;<br>    siz[u] = <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> v : e[u])<br>    &#123;<br>        <span class="hljs-keyword">if</span> (dep[v]) <span class="hljs-keyword">continue</span>;<br>        dep[v] = dep[u] + <span class="hljs-number">1</span>, fa[v] = u;<br>        <span class="hljs-built_in">dfs1</span>(v);<br>        siz[u] += siz[v];<br>        <span class="hljs-keyword">if</span> (siz[son[u]] &lt; siz[v]) son[u] = v;<br>    &#125;<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">dfs2</span><span class="hljs-params">(<span class="hljs-keyword">int</span> u, <span class="hljs-keyword">int</span> topf)</span></span><br><span class="hljs-function"></span>&#123;<br>    top[u] = topf;<br>    dfn[u] = ++tot;<br>    a[dfn[u]] = <span class="hljs-built_in">brk</span>(w[u]);<br>    <span class="hljs-keyword">if</span> (!son[u]) <span class="hljs-keyword">return</span>;<br>    <span class="hljs-built_in">dfs2</span>(son[u], topf);<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> v : e[u])<br>        <span class="hljs-keyword">if</span> (v != fa[u] &amp;&amp; v != son[u]) <span class="hljs-built_in">dfs2</span>(v, v);<br>&#125;<br><span class="hljs-function">node <span class="hljs-title">ask</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y)</span></span><br><span class="hljs-function"></span>&#123;<br>    node res;<br>    <span class="hljs-keyword">while</span> (top[x] != top[y])<br>    &#123;<br>        <span class="hljs-keyword">if</span> (dep[top[x]] &lt; dep[top[y]]) <span class="hljs-built_in">swap</span>(x, y);<br>        res = res + (s[dfn[x]] - s[dfn[top[x]] - <span class="hljs-number">1</span>]);<br>        x = fa[top[x]];<br>    &#125;<br>    <span class="hljs-keyword">if</span> (dep[x] &gt; dep[y]) <span class="hljs-built_in">swap</span>(x, y);<br>    <span class="hljs-keyword">return</span> res + (s[dfn[y]] - s[dfn[x] - <span class="hljs-number">1</span>]);<br>&#125;<br><span class="hljs-keyword">int</span> inv[<span class="hljs-number">12</span>];<br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">qpow</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">int</span> r = <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">for</span> (; y; y &gt;&gt;= <span class="hljs-number">1</span>)<br>    &#123;<br>        <span class="hljs-keyword">if</span> (y &amp; <span class="hljs-number">1</span>) r = r * x % mod;<br>        x = x * x % mod;<br>    &#125;<br>    <span class="hljs-keyword">return</span> r;<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">sum</span><span class="hljs-params">(<span class="hljs-keyword">int</span> z, <span class="hljs-keyword">int</span> y)</span></span><br><span class="hljs-function"></span>&#123;<br>    node x = <span class="hljs-built_in">ask</span>(z, y);<br>    <span class="hljs-keyword">return</span> ((<span class="hljs-built_in">qpow</span>(<span class="hljs-number">2</span>, x.x2 + <span class="hljs-number">1</span>) - <span class="hljs-number">1</span>)<br>                * (<span class="hljs-built_in">qpow</span>(<span class="hljs-number">3</span>, x.x3 + <span class="hljs-number">1</span>) - <span class="hljs-number">1</span>) % mod<br>                * (<span class="hljs-built_in">qpow</span>(<span class="hljs-number">5</span>, x.x5 + <span class="hljs-number">1</span>) - <span class="hljs-number">1</span>) % mod<br>                * (<span class="hljs-built_in">qpow</span>(<span class="hljs-number">7</span>, x.x7 + <span class="hljs-number">1</span>) - <span class="hljs-number">1</span>) % mod<br>                * (<span class="hljs-built_in">qpow</span>(<span class="hljs-number">11</span>, x.x11 + <span class="hljs-number">1</span>) - <span class="hljs-number">1</span>) % mod<br>                * inv[<span class="hljs-number">1</span>] % mod<br>                * inv[<span class="hljs-number">2</span>] % mod<br>                * inv[<span class="hljs-number">4</span>] % mod<br>                * inv[<span class="hljs-number">6</span>] % mod<br>                * inv[<span class="hljs-number">10</span>] % mod<br>            + mod)<br>           % mod;<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">signed</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-built_in">IO</span>(<span class="hljs-string">&quot;onlinejudge&quot;</span>);<br>    inv[<span class="hljs-number">1</span>] = <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">2</span>; i &lt;= <span class="hljs-number">11</span>; ++i) inv[i] = inv[mod % i] * (mod - mod / i) % mod;<br>    dep[<span class="hljs-number">1</span>] = <span class="hljs-number">1</span>;<br>    cin &gt;&gt; n &gt;&gt; m;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++) cin &gt;&gt; w[i];<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>, u, v; i &lt; n; i++)<br>    &#123;<br>        cin &gt;&gt; u &gt;&gt; v;<br>        e[u].<span class="hljs-built_in">push_back</span>(v), e[v].<span class="hljs-built_in">push_back</span>(u);<br>    &#125;<br>    <span class="hljs-built_in">dfs1</span>(<span class="hljs-number">1</span>);<br>    <span class="hljs-built_in">dfs2</span>(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>);<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++) s[i] = s[i - <span class="hljs-number">1</span>] + a[i];<br>    <span class="hljs-keyword">while</span> (m--)<br>    &#123;<br>        <span class="hljs-keyword">int</span> x, y;<br>        cin &gt;&gt; x &gt;&gt; y;<br>        cout &lt;&lt; <span class="hljs-built_in">sum</span>(x, y) &lt;&lt; endl;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+
             </div>
             <hr>
             <div>
@@ -254,9 +256,15 @@
                     
                       <a class="hover-with-bg" href="/tags/%E6%95%B0%E5%AD%A6/">数学</a>
                     
-                      <a class="hover-with-bg" href="/tags/%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88/">排列组合</a>
+                      <a class="hover-with-bg" href="/tags/%E6%95%B0%E8%AE%BA/">数论</a>
                     
-                      <a class="hover-with-bg" href="/tags/%E4%BA%8C%E5%88%86%E7%AD%94%E6%A1%88/">二分答案</a>
+                      <a class="hover-with-bg" href="/tags/%E5%9B%BE%E8%AE%BA/">图论</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%A0%91%E9%93%BE%E5%89%96%E5%88%86/">树链剖分</a>
+                    
+                      <a class="hover-with-bg" href="/tags/CornOI/">CornOI</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%89%8D%E7%BC%80%E5%92%8C/">前缀和</a>
                     
                   </div>
                 
@@ -273,18 +281,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/08/29/NOIP%E6%A8%A1%E6%8B%9F%E8%B5%9BR6-%E6%80%BB%E7%BB%93/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">「NOIP 模拟赛 R6」赛后总结</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/08/27/NOIP%E6%A8%A1%E6%8B%9F%E8%B5%9BR5-T3/">
-                        <span class="hidden-mobile">「NOIP 模拟赛 R5」mod</span>
+                      <a href="/2021/09/27/Corn1-T1/">
+                        <span class="hidden-mobile">「Corn#1」排课表</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
