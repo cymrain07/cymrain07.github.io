@@ -14,11 +14,11 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="拓扑排序实现 DP">
+  <meta name="description" content="SPFA 都快忘了怎么写的了……">
   <meta name="author" content="Rain">
   <meta name="keywords" content="">
   
-  <title>「189-I」食物链 - Rain&#39;s blog</title>
+  <title>「189-N」黑暗城堡 - Rain&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -179,7 +179,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="「189-I」食物链">
+            <span class="h2" id="subtitle" title="「189-N」黑暗城堡">
               
             </span>
 
@@ -189,8 +189,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-08-18 21:04" pubdate>
-        2021年8月18日 晚上
+      <time datetime="2021-10-05 09:24" pubdate>
+        2021年10月5日 上午
       </time>
     </span>
   
@@ -201,7 +201,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      225 字
+      252 字
     </span>
   
 
@@ -232,12 +232,12 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">「189-I」食物链</h1>
+            <h1 style="display: none">「189-N」黑暗城堡</h1>
             
             <div class="markdown-body">
-              <p>首先生物中食物网肯定是个 DAG。<br>统计每个点的出度 $out(i)$。<br>进行拓扑排序，在 BFS 的同时进行 DP 转移：<br>当存在一条从 $u$ 到 $v$ 的边，$f(v)\gets f(v)+f(u)$。<br>最后答案是：</p>
+              <p>首先从 $1$ 开始跑一遍最短路。<br>之后对于每个点 $v$ 来说，只要存在一条边 $(u,v)$ 在最短路图上，就将 $\textit{cnt}(v)$ 加一。<br>最后答案为：</p>
 <script type="math/tex; mode=display">
-\sum_{out(i)=0}f(i)</script><figure class="highlight cpp"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;bits/stdc++.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> N 100005</span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-keyword">int</span> n, m, in[N], out[N], ans, dp[N];<br>vector&lt;<span class="hljs-keyword">int</span>&gt; e[N];<br>queue&lt;<span class="hljs-keyword">int</span>&gt; q;<br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">topo</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">while</span> (!q.<span class="hljs-built_in">empty</span>())<br>    &#123;<br>        <span class="hljs-keyword">int</span> u = q.<span class="hljs-built_in">front</span>();<br>        q.<span class="hljs-built_in">pop</span>();<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> v : e[u])<br>        &#123;<br>            dp[v] += dp[u];<br>            in[v]--;<br>            <span class="hljs-keyword">if</span> (in[v] == <span class="hljs-number">0</span>)<br>                q.<span class="hljs-built_in">push</span>(v);<br>        &#125;<br>    &#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    cin &gt;&gt; n &gt;&gt; m;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>, u, v; i &lt;= m; i++)<br>    &#123;<br>        cin &gt;&gt; u &gt;&gt; v;<br>        e[u].<span class="hljs-built_in">push_back</span>(v);<br>        in[v]++, out[u]++;<br>    &#125;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++)<br>    &#123;<br>        <span class="hljs-keyword">if</span> (in[i] == <span class="hljs-number">0</span>)<br>            q.<span class="hljs-built_in">push</span>(i);<br>        <span class="hljs-keyword">if</span> (in[i] == <span class="hljs-number">0</span> &amp;&amp; out[i] != <span class="hljs-number">0</span>)<br>            dp[i] = <span class="hljs-number">1</span>;<br>    &#125;<br>    <span class="hljs-built_in">topo</span>();<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++)<br>        <span class="hljs-keyword">if</span> (out[i] == <span class="hljs-number">0</span>)<br>            ans += dp[i];<br>    cout &lt;&lt; ans;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+\prod_{i=2}^n\textit{cnt}(i)</script><figure class="highlight cpp"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;bits/stdc++.h&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> N 1005</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> int long long</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> mod 2147483647</span><br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">edge</span></span><br><span class="hljs-class">&#123;</span><br>    <span class="hljs-keyword">int</span> v, w;<br>&#125;;<br>vector&lt;edge&gt; e[N];<br><span class="hljs-keyword">int</span> n, m;<br><span class="hljs-keyword">int</span> dis[N];<br>queue&lt;<span class="hljs-keyword">int</span>&gt; q;<br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SPFA</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-built_in">memset</span>(dis, <span class="hljs-number">0x3f</span>, <span class="hljs-built_in"><span class="hljs-keyword">sizeof</span></span>(dis));<br>    dis[<span class="hljs-number">1</span>] = <span class="hljs-number">0</span>;<br>    q.<span class="hljs-built_in">push</span>(<span class="hljs-number">1</span>);<br>    <span class="hljs-keyword">while</span> (!q.<span class="hljs-built_in">empty</span>())<br>    &#123;<br>        <span class="hljs-keyword">int</span> u = q.<span class="hljs-built_in">front</span>();<br>        q.<span class="hljs-built_in">pop</span>();<br>        <span class="hljs-keyword">for</span> (edge x : e[u])<br>        &#123;<br>            <span class="hljs-keyword">int</span> v = x.v;<br>            <span class="hljs-keyword">if</span> (dis[v] &gt; dis[u] + x.w)<br>            &#123;<br>                dis[v] = dis[u] + x.w;<br>                q.<span class="hljs-built_in">push</span>(v);<br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br><span class="hljs-keyword">int</span> cnt[N], ans = <span class="hljs-number">1</span>;<br><span class="hljs-function"><span class="hljs-keyword">signed</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    cin &gt;&gt; n &gt;&gt; m;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>, u, v, w; i &lt;= m; i++)<br>    &#123;<br>        cin &gt;&gt; u &gt;&gt; v &gt;&gt; w;<br>        e[u].<span class="hljs-built_in">push_back</span>(&#123;v, w&#125;);<br>        e[v].<span class="hljs-built_in">push_back</span>(&#123;u, w&#125;);<br>    &#125;<br>    <span class="hljs-built_in">SPFA</span>();<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++)<br>        <span class="hljs-keyword">for</span> (edge x : e[i])<br>            <span class="hljs-keyword">if</span> (dis[x.v] == dis[i] + x.w) cnt[x.v]++;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">2</span>; i &lt;= n; i++) ans = ans * cnt[i] % mod;<br>    cout &lt;&lt; ans;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></div></td></tr></table></figure>
 
             </div>
             <hr>
@@ -255,13 +255,11 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
+                      <a class="hover-with-bg" href="/tags/%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88/">排列组合</a>
+                    
                       <a class="hover-with-bg" href="/tags/%E5%9B%BE%E8%AE%BA/">图论</a>
                     
-                      <a class="hover-with-bg" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
-                    
-                      <a class="hover-with-bg" href="/tags/DAG-%E4%B8%8A%E7%9A%84-DP/">DAG 上的 DP</a>
-                    
-                      <a class="hover-with-bg" href="/tags/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F/">拓扑排序</a>
+                      <a class="hover-with-bg" href="/tags/%E6%9C%80%E7%9F%AD%E8%B7%AF/">最短路</a>
                     
                   </div>
                 
@@ -278,18 +276,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/08/19/SG1-T3/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">「SG#1」收费站</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/08/18/187-Y/">
-                        <span class="hidden-mobile">「187-Y」银河英雄传说</span>
+                      <a href="/2021/10/04/Corn7-T1/">
+                        <span class="hidden-mobile">「Corn#7」普爱班</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
