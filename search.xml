@@ -4,7 +4,7 @@
   
     
     <entry>
-      <title></title>
+      <title>「Corn#14」</title>
       <link href="/2021/11/06/Corn14-T4/"/>
       <url>/2021/11/06/Corn14-T4/</url>
       
@@ -50,7 +50,7 @@
       <link href="/2021/11/06/%E5%8C%96%E5%AD%A6%E6%96%B9%E7%A8%8B%E5%BC%8F/"/>
       <url>/2021/11/06/%E5%8C%96%E5%AD%A6%E6%96%B9%E7%A8%8B%E5%BC%8F/</url>
       
-        <content type="html"><![CDATA[<p>物质在氧气中燃烧：</p><script type="math/tex; mode=display">\ce{C +O2}\xlongequal{点燃}\ce{CO2}</script><script type="math/tex; mode=display">\ce{S +O2}\xlongequal{点燃}\ce{SO2}</script><script type="math/tex; mode=display">4\ce{P +}5\ce{O2}\xlongequal{点燃}2\ce{P2O5}</script><script type="math/tex; mode=display">3\ce{Fe +}2\ce{O2}\xlongequal{点燃}\ce{Fe3O4}</script><script type="math/tex; mode=display">2\ce{H2 +O2}\xlongequal{点燃}2\ce{H2O}</script><p>制取氧气：</p><script type="math/tex; mode=display">2\ce{KMnO4}\xlongequal{\triangle}\ce{K2MnO4 +MnO2 +O2 ^}</script><script type="math/tex; mode=display">2\ce{H2O2}\xlongequal{\ce{MnO2}}2\ce{H2O +O2 ^}</script><script type="math/tex; mode=display">2\ce{KClO3}\xlongequal[\triangle]{\ce{MnO2}}2\ce{KCl +}3\ce{O2 ^}</script><p>电解水：</p><script type="math/tex; mode=display">2\ce{H2O}\xlongequal{通电}2\ce{H2 ^ +O2 ^}</script>]]></content>
+        <content type="html"><![CDATA[<p>物质在氧气中燃烧：</p><script type="math/tex; mode=display">\ce{C +O2}\xlongequal{点燃}\ce{CO2}</script><script type="math/tex; mode=display">\ce{S +O2}\xlongequal{点燃}\ce{SO2}</script><script type="math/tex; mode=display">4\ce{P +}5\ce{O2}\xlongequal{点燃}2\ce{P2O5}</script><script type="math/tex; mode=display">3\ce{Fe +}2\ce{O2}\xlongequal{点燃}\ce{Fe3O4}</script><script type="math/tex; mode=display">2\ce{H2 +O2}\xlongequal{点燃}2\ce{H2O}</script><p>制取氧气：</p><script type="math/tex; mode=display">2\ce{KMnO4}\xlongequal{\triangle}\ce{K2MnO4 +MnO2 +O2 ^}</script><script type="math/tex; mode=display">2\ce{H2O2}\xlongequal{\ce{MnO2}}2\ce{H2O +O2 ^}</script><script type="math/tex; mode=display">2\ce{KClO3}\xlongequal[\triangle]{\ce{MnO2}}2\ce{KCl +}3\ce{O2 ^}</script><p>电解水：</p><script type="math/tex; mode=display">2\ce{H2O}\xlongequal{通电}2\ce{H2 ^ +O2 ^}</script><p>关于 $\ce{C,CO,CO2}$：</p><script type="math/tex; mode=display">\ce{C +}2\ce{CuO}\xlongequal{高温}2\ce{Cu +CO2 ^}</script><script type="math/tex; mode=display">3\ce{C +}2\ce{Fe2O3}\xlongequal{高温}4\ce{Fe +}3\ce{CO2 ^}</script><script type="math/tex; mode=display">2\ce{C +}\ce{Fe3O4}\xlongequal{高温}3\ce{Fe +}2\ce{CO2 ^}</script><script type="math/tex; mode=display">\ce{C +CO2}\xlongequal{高温}2\ce{CO}</script>]]></content>
       
       
       
@@ -495,11 +495,11 @@
       
         <tags>
             
-            <tag> 图论 </tag>
-            
             <tag> 数据结构 </tag>
             
             <tag> ST 表 </tag>
+            
+            <tag> 图论 </tag>
             
             <tag> 最小生成树 </tag>
             
@@ -557,11 +557,11 @@
       
         <tags>
             
+            <tag> 数据结构 </tag>
+            
             <tag> 图论 </tag>
             
             <tag> 最短路 </tag>
-            
-            <tag> 数据结构 </tag>
             
             <tag> 线段树 </tag>
             
@@ -623,9 +623,9 @@
       
         <tags>
             
-            <tag> 图论 </tag>
-            
             <tag> 数据结构 </tag>
+            
+            <tag> 图论 </tag>
             
             <tag> 线段树 </tag>
             
@@ -1382,11 +1382,11 @@
       
         <tags>
             
+            <tag> 二分答案 </tag>
+            
             <tag> 图论 </tag>
             
             <tag> 最短路 </tag>
-            
-            <tag> 二分答案 </tag>
             
             <tag> CornOI </tag>
             
@@ -1784,9 +1784,9 @@
       
         <tags>
             
-            <tag> 图论 </tag>
-            
             <tag> 数据结构 </tag>
+            
+            <tag> 图论 </tag>
             
             <tag> 线段树 </tag>
             
