@@ -8,9 +8,25 @@
     <link href="/2021/11/07/Corn20-T2/"/>
     <url>/2021/11/07/Corn20-T2/</url>
     
-    <content type="html"><![CDATA[]]></content>
+    <content type="html"><![CDATA[<p>由于插入每个数产生的逆序对个数和之前数的排列方式没有关系，所以直接用树状数组求放在队列首和队列尾产生的逆序对个数，取 $\min$，累加答案。<br>注意答案要开 <code>long long</code>。</p><figure class="highlight cpp"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;bits/stdc++.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> N 300005</span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-keyword">namespace</span> IO<br>&#123;<br><span class="hljs-keyword">template</span> &lt;<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">T</span>&gt;</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">read</span><span class="hljs-params">(T &amp;x)</span></span><br><span class="hljs-function"></span>&#123;<br>    x = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">char</span> c = <span class="hljs-built_in">getchar</span>(), d = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">while</span> (!<span class="hljs-built_in">isdigit</span>(c)) d = c, c = <span class="hljs-built_in">getchar</span>();<br>    <span class="hljs-keyword">while</span> (<span class="hljs-built_in">isdigit</span>(c)) x = x * <span class="hljs-number">10</span> + c - <span class="hljs-string">&#x27;0&#x27;</span>, c = <span class="hljs-built_in">getchar</span>();<br>    <span class="hljs-keyword">if</span> (d == <span class="hljs-string">&#x27;-&#x27;</span>) x = -x;<br>&#125;<br><span class="hljs-keyword">template</span> &lt;<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">T</span>&gt;</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">wt</span><span class="hljs-params">(T x)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">if</span> (x / <span class="hljs-number">10</span>) <span class="hljs-built_in">wt</span>(x / <span class="hljs-number">10</span>);<br>    <span class="hljs-built_in">putchar</span>(x % <span class="hljs-number">10</span> + <span class="hljs-string">&#x27;0&#x27;</span>);<br>&#125;<br><span class="hljs-keyword">template</span> &lt;<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">T</span>&gt;</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">write</span><span class="hljs-params">(T x)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">if</span> (x &lt; <span class="hljs-number">0</span>) x = -x, <span class="hljs-built_in">putchar</span>(<span class="hljs-string">&#x27;-&#x27;</span>);<br>    <span class="hljs-built_in">wt</span>(x);<br>&#125;<br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> space(x) write(x), putchar(<span class="hljs-meta-string">&#x27; &#x27;</span>)</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> enter(x) write(x), putchar(<span class="hljs-meta-string">&#x27;\n&#x27;</span>)</span><br>&#125; <span class="hljs-comment">// namespace IO</span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> IO;<br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">BIT</span></span><br><span class="hljs-class">&#123;</span><br>    <span class="hljs-keyword">int</span> c[N];<br>    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">qry</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span></span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span> (; x; x -= x &amp; -x) res += c[x];<br>        <span class="hljs-keyword">return</span> res;<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">upd</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y)</span></span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">for</span> (; x &lt; N; x += x &amp; -x) c[x] += y;<br>    &#125;<br>&#125; T1;<br><span class="hljs-keyword">int</span> n, a[N], b[N];<br>unordered_map&lt;<span class="hljs-keyword">int</span>, <span class="hljs-keyword">int</span>&gt; mp;<br><span class="hljs-keyword">int</span> tot = <span class="hljs-number">1</span>;<br><span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span> ans;<br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-built_in">read</span>(n);<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++) <span class="hljs-built_in">read</span>(a[i]), b[i] = a[i];<br>    <span class="hljs-built_in">sort</span>(b + <span class="hljs-number">1</span>, b + n + <span class="hljs-number">1</span>);<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++)<br>        <span class="hljs-keyword">if</span> (!mp.<span class="hljs-built_in">count</span>(b[i])) mp[b[i]] = ++tot;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++) a[i] = mp[a[i]];<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++)<br>    &#123;<br>        <span class="hljs-keyword">int</span> x = T1.<span class="hljs-built_in">qry</span>(a[i] - <span class="hljs-number">1</span>), y = i - <span class="hljs-number">1</span> - T1.<span class="hljs-built_in">qry</span>(a[i]);<br>        ans += <span class="hljs-built_in">min</span>(x, y);<br>        T1.<span class="hljs-built_in">upd</span>(a[i], <span class="hljs-number">1</span>);<br>    &#125;<br>    <span class="hljs-built_in">enter</span>(ans);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></div></td></tr></table></figure>]]></content>
     
     
+    <categories>
+      
+      <category>题解</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>数据结构</tag>
+      
+      <tag>CornOI</tag>
+      
+      <tag>树状数组</tag>
+      
+    </tags>
     
   </entry>
   
@@ -34,6 +50,8 @@
     <tags>
       
       <tag>图论</tag>
+      
+      <tag>CornOI</tag>
       
     </tags>
     
@@ -61,6 +79,8 @@
       <tag>动态规划</tag>
       
       <tag>线性 DP</tag>
+      
+      <tag>CornOI</tag>
       
     </tags>
     
@@ -189,9 +209,9 @@
       
       <tag>数据结构</tag>
       
-      <tag>数学</tag>
-      
       <tag>线段树</tag>
+      
+      <tag>数学</tag>
       
       <tag>CornOI</tag>
       
@@ -280,9 +300,9 @@
       
       <tag>数据结构</tag>
       
-      <tag>数学</tag>
-      
       <tag>线段树</tag>
+      
+      <tag>数学</tag>
       
       <tag>线性代数</tag>
       
@@ -611,11 +631,11 @@
       
       <tag>数据结构</tag>
       
+      <tag>线段树</tag>
+      
       <tag>图论</tag>
       
       <tag>最短路</tag>
-      
-      <tag>线段树</tag>
       
       <tag>线段树优化建图</tag>
       
@@ -679,9 +699,9 @@
       
       <tag>并查集</tag>
       
-      <tag>图论</tag>
-      
       <tag>线段树</tag>
+      
+      <tag>图论</tag>
       
       <tag>LCA</tag>
       
@@ -1083,8 +1103,6 @@
     <tags>
       
       <tag>CornOI</tag>
-      
-      <tag>贪心</tag>
       
     </tags>
     
@@ -1575,9 +1593,9 @@
       
       <tag>数据结构</tag>
       
-      <tag>数学</tag>
-      
       <tag>线段树</tag>
+      
+      <tag>数学</tag>
       
       <tag>线性代数</tag>
       
@@ -1830,9 +1848,9 @@
       
       <tag>数据结构</tag>
       
-      <tag>图论</tag>
-      
       <tag>线段树</tag>
+      
+      <tag>图论</tag>
       
       <tag>树链剖分</tag>
       
