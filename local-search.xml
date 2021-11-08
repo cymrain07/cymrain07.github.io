@@ -107,9 +107,9 @@
       
       <tag>二分答案</tag>
       
-      <tag>CornOI</tag>
-      
       <tag>前缀和</tag>
+      
+      <tag>CornOI</tag>
       
     </tags>
     
@@ -428,9 +428,9 @@
       
       <tag>树链剖分</tag>
       
-      <tag>CornOI</tag>
-      
       <tag>前缀和</tag>
+      
+      <tag>CornOI</tag>
       
     </tags>
     
@@ -569,9 +569,9 @@
       
       <tag>数据结构</tag>
       
-      <tag>图论</tag>
-      
       <tag>ST 表</tag>
+      
+      <tag>图论</tag>
       
       <tag>最小生成树</tag>
       
@@ -697,11 +697,11 @@
       
       <tag>数据结构</tag>
       
-      <tag>并查集</tag>
-      
       <tag>图论</tag>
       
       <tag>线段树</tag>
+      
+      <tag>并查集</tag>
       
       <tag>LCA</tag>
       
@@ -768,7 +768,7 @@
     <link href="/2021/08/29/NOIP%E6%A8%A1%E6%8B%9F%E8%B5%9BR6-%E6%80%BB%E7%BB%93/"/>
     <url>/2021/08/29/NOIP%E6%A8%A1%E6%8B%9F%E8%B5%9BR6-%E6%80%BB%E7%BB%93/</url>
     
-    <content type="html"><![CDATA[<p><del>本场比赛不会任何题，全部暴力</del></p><ul><li>T1 写了 $60$ 分 01 背包。</li><li>T2 写了 $40$ 分 $O(n^3)$ DP。</li><li>T3 写了 $40$ 分 BFS。</li></ul><p>预估得分：$60+40+40=140$。<br>实际得分：$60+40+40=140$。<br>总算考完了啊。</p><hr><p>题解：</p><ul><li><a href="https://cymrain07.github.io/2021/08/29/NOIP模拟赛-T2/">T2 String Master</a></li><li><a href="https://cymrain07.github.io/2021/08/29/NOIP模拟赛-T3/">T3 Walk</a></li><li><a href="https://cymrain07.github.io/2021/08/29/NOIP模拟赛-T4/">T4 Dash Speed</a></li></ul>]]></content>
+    <content type="html"><![CDATA[<p><del>本场比赛不会任何题，全部暴力</del></p><ul><li>T1 写了 $60$ 分 01 背包。</li><li>T2 写了 $40$ 分 $O(n^3)$ DP。</li><li>T3 写了 $40$ 分 BFS。</li></ul><p>预估得分：$60+40+40+0=140$。<br>实际得分：$60+40+40+0=140$。<br>总算考完了啊。</p><hr><p>题解：</p><ul><li><a href="https://cymrain07.vercel.app/2021/08/29/NOIP模拟赛-T2/">T2 String Master</a></li><li><a href="https://cymrain07.vercel.app/2021/08/29/NOIP模拟赛-T3/">T3 Walk</a></li><li><a href="https://cymrain07.vercel.app/2021/08/29/NOIP模拟赛-T4/">T4 Dash Speed</a></li></ul>]]></content>
     
     
     <categories>
@@ -901,7 +901,7 @@
     <link href="/2021/08/27/NOIP%E6%A8%A1%E6%8B%9F%E8%B5%9BR5-%E6%80%BB%E7%BB%93/"/>
     <url>/2021/08/27/NOIP%E6%A8%A1%E6%8B%9F%E8%B5%9BR5-%E6%80%BB%E7%BB%93/</url>
     
-    <content type="html"><![CDATA[<p><del>论开大数组的重要性</del><br>T3 很明显是数据结构题，用线段树，取模稍想了一下可以维护区间最大值来优化。<br>然后 T2，开始想错了后来写了 BFS，但是空间会爆。<br>接着 T1，想出奇葩 DP+树状数组做法。<br>T4 神仙题。<br>预估得分：$100+40+100+0=240$<br>实际得分：$60+60+100+0=220$<br>T1 树状数组空间开小了。<br><del>挂分惨烈</del></p><hr><p>题解：</p><ul><li><a href="https://cymrain07.github.io/2021/08/27/NOIP模拟赛R5-T1/">T1 clique</a></li><li><a href="https://cymrain07.github.io/2021/08/27/NOIP模拟赛R5-T2/">T2 Tourist Attractions</a></li><li><a href="https://cymrain07.github.io/2021/08/27/NOIP模拟赛R5-T3/">T3 mod</a></li><li><a href="https://cymrain07.github.io/2021/08/27/NOIP模拟赛R5-T4/">T4 number</a></li></ul>]]></content>
+    <content type="html"><![CDATA[<p><del>论开大数组的重要性</del><br>T3 很明显是数据结构题，用线段树，取模稍想了一下可以维护区间最大值来优化。<br>然后 T2，开始想错了后来写了 BFS，但是空间会爆。<br>接着 T1，想出奇葩 DP+树状数组做法。<br>T4 神仙题。<br>预估得分：$100+40+100+0=240$<br>实际得分：$60+60+100+0=220$<br>T1 树状数组空间开小了。<br><del>挂分惨烈</del></p><hr><p>题解：</p><ul><li><a href="https://cymrain07.vercel.app/2021/08/27/NOIP模拟赛R5-T1/">T1 clique</a></li><li><a href="https://cymrain07.vercel.app/2021/08/27/NOIP模拟赛R5-T2/">T2 Tourist Attractions</a></li><li><a href="https://cymrain07.vercel.app/2021/08/27/NOIP模拟赛R5-T3/">T3 mod</a></li><li><a href="https://cymrain07.vercel.app/2021/08/27/NOIP模拟赛R5-T4/">T4 number</a></li></ul>]]></content>
     
     
     <categories>
@@ -1009,7 +1009,7 @@
     <link href="/2021/08/26/NOIP%E6%A8%A1%E6%8B%9F%E8%B5%9BR4-%E6%80%BB%E7%BB%93/"/>
     <url>/2021/08/26/NOIP%E6%A8%A1%E6%8B%9F%E8%B5%9BR4-%E6%80%BB%E7%BB%93/</url>
     
-    <content type="html"><![CDATA[<p><del>爆炸了</del><br>先开的 T2，几乎推出正解，<del>但没有推出</del>。<br>回去看 T1，思考良久有了正解，$100$ 分到手。<br>接着 T4 打了 $40$ 分暴力，T3 神仙题。<br>最后 T2 $40$ 分暴力。<br>预估得分：$100+40+0+40=180$<br>实际得分：$100+12+0+40=152$<br>T2 挂了 $28$ 分。<br><del>去世了</del></p><hr><p>题解：</p><ul><li><a href="https://cymrain07.github.io/2021/08/26/NOIP模拟赛R4-T1/">T1 Divisors</a></li><li><a href="https://cymrain07.github.io/2021/08/26/NOIP模拟赛R4-T2/">T2 平均数</a></li><li><a href="https://cymrain07.github.io/2021/08/26/NOIP模拟赛R4-T4/">T4 序列</a></li></ul>]]></content>
+    <content type="html"><![CDATA[<p><del>爆炸了</del><br>先开的 T2，几乎推出正解，<del>但没有推出</del>。<br>回去看 T1，思考良久有了正解，$100$ 分到手。<br>接着 T4 打了 $40$ 分暴力，T3 神仙题。<br>最后 T2 $40$ 分暴力。<br>预估得分：$100+40+0+40=180$<br>实际得分：$100+12+0+40=152$<br>T2 挂了 $28$ 分。<br><del>去世了</del></p><hr><p>题解：</p><ul><li><a href="https://cymrain07.vercel.app/2021/08/26/NOIP模拟赛R4-T1/">T1 Divisors</a></li><li><a href="https://cymrain07.vercel.app/2021/08/26/NOIP模拟赛R4-T2/">T2 平均数</a></li><li><a href="https://cymrain07.vercel.app/2021/08/26/NOIP模拟赛R4-T4/">T4 序列</a></li></ul>]]></content>
     
     
     <categories>
@@ -1115,7 +1115,7 @@
     <link href="/2021/08/25/Corn17-%E6%80%BB%E7%BB%93/"/>
     <url>/2021/08/25/Corn17-%E6%80%BB%E7%BB%93/</url>
     
-    <content type="html"><![CDATA[<p><del>没想到 YSJ 出题那么毒瘤</del><br><del>为什么题目名都是日文</del><br>T1 很明显是贪心，但是没想到怎么贪。<br>接下来看 T3，<del>不会</del><br>又去想 T1，发现贪心做法极其简单，$100$ 分到手。<br>然后 T2，只会 $40$ 分暴力。写完了。<br>T4 肯定是数据结构，<del>但我不会</del>，写了 $15$ 分暴力。<br>最后 T3，写了 $O(n^2)$ 暴力，有 $65$ 分。<br>预估得分：$100+40+65+15=220$<br>实际得分：$100+10+65+15=190$<br>咳 T2 没开 <code>long long</code>，挂了 $30$ 分。<br>注意细节啊！</p><hr><p>题解：</p><ul><li><a href="https://cymrain07.github.io/2021/08/25/Corn17-T1/">T1 お気に召すまま</a></li><li><a href="https://cymrain07.github.io/2021/08/25/Corn17-T2/">T2 ウミユリ海底譚</a></li><li><a href="https://cymrain07.github.io/2021/08/25/Corn17-T4/">T4 ローリンガール</a></li></ul>]]></content>
+    <content type="html"><![CDATA[<p><del>没想到 YSJ 出题那么毒瘤</del><br><del>为什么题目名都是日文</del><br>T1 很明显是贪心，但是没想到怎么贪。<br>接下来看 T3，<del>不会</del><br>又去想 T1，发现贪心做法极其简单，$100$ 分到手。<br>然后 T2，只会 $40$ 分暴力。写完了。<br>T4 肯定是数据结构，<del>但我不会</del>，写了 $15$ 分暴力。<br>最后 T3，写了 $O(n^2)$ 暴力，有 $65$ 分。<br>预估得分：$100+40+65+15=220$<br>实际得分：$100+10+65+15=190$<br>咳 T2 没开 <code>long long</code>，挂了 $30$ 分。<br>注意细节啊！</p><hr><p>题解：</p><ul><li><a href="https://cymrain07.vercel.app/2021/08/25/Corn17-T1/">T1 お気に召すまま</a></li><li><a href="https://cymrain07.vercel.app/2021/08/25/Corn17-T2/">T2 ウミユリ海底譚</a></li><li><a href="https://cymrain07.vercel.app/2021/08/25/Corn17-T4/">T4 ローリンガール</a></li></ul>]]></content>
     
     
     <categories>
@@ -1258,7 +1258,7 @@
     <link href="/2021/08/24/Corn15-%E6%80%BB%E7%BB%93/"/>
     <url>/2021/08/24/Corn15-%E6%80%BB%E7%BB%93/</url>
     
-    <content type="html"><![CDATA[<p><del>fr 的题果然难</del><br><del>我竟然没去世</del><br>开始先看 T1，想了半天好像有一个 $O(n)$ 的递推，但是会炸高精。<br>先扔这去看 T2，思考良久<del>无果</del>，写了个暴力。<br>然后是 T3，哇这不是 01-Trie 吗，有 $54$ 分，写完了想 $k\neq 1$ 的情况，发现和 $k=1$ 几乎是一样的，写完了。<br>回去看 T1，<del>傻透气的</del>我发现自己分母算错了，炸不了高精，可以过 $100$，愉快写完。<br>T4 一看就是神仙题，溜了。<br>预估得分 $100+7+100+0=207$<br>实际得分 $100+0+100+0=200$<br>只挂了个暴力。<br>话说我 T1 解法和题解不一样欸。<br><del>这套题真难啊</del><br><del>明天的比赛竟然还没放出来</del></p><hr><p>题解：</p><ul><li><a href="https://cymrain07.github.io/2021/08/24/Corn15-T1/">T1 思维碰撞</a></li><li><a href="https://cymrain07.github.io/2021/08/24/Corn15-T2/">T2 内卷时代</a></li><li><a href="https://cymrain07.github.io/2021/08/24/Corn15-T3/">T3 身败名裂</a></li></ul>]]></content>
+    <content type="html"><![CDATA[<p><del>fr 的题果然难</del><br><del>我竟然没去世</del><br>开始先看 T1，想了半天好像有一个 $O(n)$ 的递推，但是会炸高精。<br>先扔这去看 T2，思考良久<del>无果</del>，写了个暴力。<br>然后是 T3，哇这不是 01-Trie 吗，有 $54$ 分，写完了想 $k\neq 1$ 的情况，发现和 $k=1$ 几乎是一样的，写完了。<br>回去看 T1，<del>傻透气的</del>我发现自己分母算错了，炸不了高精，可以过 $100$，愉快写完。<br>T4 一看就是神仙题，溜了。<br>预估得分 $100+7+100+0=207$<br>实际得分 $100+0+100+0=200$<br>只挂了个暴力。<br>话说我 T1 解法和题解不一样欸。<br><del>这套题真难啊</del><br><del>明天的比赛竟然还没放出来</del></p><hr><p>题解：</p><ul><li><a href="https://cymrain07.vercel.app/2021/08/24/Corn15-T1/">T1 思维碰撞</a></li><li><a href="https://cymrain07.vercel.app/2021/08/24/Corn15-T2/">T2 内卷时代</a></li><li><a href="https://cymrain07.vercel.app/2021/08/24/Corn15-T3/">T3 身败名裂</a></li></ul>]]></content>
     
     
     <categories>
@@ -1347,7 +1347,7 @@
     <link href="/2021/08/23/Corn16-%E6%80%BB%E7%BB%93/"/>
     <url>/2021/08/23/Corn16-%E6%80%BB%E7%BB%93/</url>
     
-    <content type="html"><![CDATA[<p>开始浏览了四道题，发现 D 是个图论，先想无果，水了 $30$ 走人。<br>回去看 B，哇这不是字符串最小循环节原题吗，加个特判循环超过两次可以过。<br>开 A，开始审错题了，白写了 $30$ 分钟，最后写了个暴力应该有 $45$ 分。<br>写 A 花掉了大量时间，C 直接输出 $\texttt?$ 有 $5/10$ 分。<br>D 又加了个固定输出骗分。<br>预估得分 $45+100+5/10+30=180/185$。<br>实际得分 $70+100+10+35=215$。<br>多拿了不少分。<br>A 的数据好水，$O(nm)$ 有 $70$ 分。<br>总体不错，<del>明天面对 fr 的题直接去世</del></p><hr><p>题解：</p><ul><li><a href="https://cymrain07.github.io/2021/08/23/Corn16-T1/">T1 数据结构</a></li><li><a href="https://cymrain07.github.io/2021/08/24/Corn16-T2/">T2 程序设计</a></li><li><a href="https://cymrain07.github.io/2021/08/23/Corn16-T4/">T4 离散数学</a></li></ul>]]></content>
+    <content type="html"><![CDATA[<p>开始浏览了四道题，发现 D 是个图论，先想无果，水了 $30$ 走人。<br>回去看 B，哇这不是字符串最小循环节原题吗，加个特判循环超过两次可以过。<br>开 A，开始审错题了，白写了 $30$ 分钟，最后写了个暴力应该有 $45$ 分。<br>写 A 花掉了大量时间，C 直接输出 $\texttt?$ 有 $5/10$ 分。<br>D 又加了个固定输出骗分。<br>预估得分 $45+100+5/10+30=180/185$。<br>实际得分 $70+100+10+35=215$。<br>多拿了不少分。<br>A 的数据好水，$O(nm)$ 有 $70$ 分。<br>总体不错，<del>明天面对 fr 的题直接去世</del></p><hr><p>题解：</p><ul><li><a href="https://cymrain07.vercel.app/2021/08/23/Corn16-T1/">T1 数据结构</a></li><li><a href="https://cymrain07.vercel.app/2021/08/24/Corn16-T2/">T2 程序设计</a></li><li><a href="https://cymrain07.vercel.app/2021/08/23/Corn16-T4/">T4 离散数学</a></li></ul>]]></content>
     
     
     <categories>
@@ -1444,11 +1444,11 @@
     
     <tags>
       
+      <tag>二分答案</tag>
+      
       <tag>图论</tag>
       
       <tag>最短路</tag>
-      
-      <tag>二分答案</tag>
       
       <tag>CornOI</tag>
       
