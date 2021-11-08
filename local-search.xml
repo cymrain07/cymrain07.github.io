@@ -107,9 +107,9 @@
       
       <tag>二分答案</tag>
       
-      <tag>CornOI</tag>
-      
       <tag>前缀和</tag>
+      
+      <tag>CornOI</tag>
       
     </tags>
     
@@ -428,9 +428,9 @@
       
       <tag>树链剖分</tag>
       
-      <tag>CornOI</tag>
-      
       <tag>前缀和</tag>
+      
+      <tag>CornOI</tag>
       
     </tags>
     
@@ -631,11 +631,11 @@
       
       <tag>数据结构</tag>
       
-      <tag>线段树</tag>
-      
       <tag>图论</tag>
       
       <tag>最短路</tag>
+      
+      <tag>线段树</tag>
       
       <tag>线段树优化建图</tag>
       
@@ -697,11 +697,11 @@
       
       <tag>数据结构</tag>
       
-      <tag>线段树</tag>
-      
       <tag>并查集</tag>
       
       <tag>图论</tag>
+      
+      <tag>线段树</tag>
       
       <tag>LCA</tag>
       
@@ -1848,9 +1848,9 @@
       
       <tag>数据结构</tag>
       
-      <tag>线段树</tag>
-      
       <tag>图论</tag>
+      
+      <tag>线段树</tag>
       
       <tag>树链剖分</tag>
       
