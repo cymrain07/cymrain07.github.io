@@ -240,11 +240,11 @@
             
             <tag> 数学 </tag>
             
+            <tag> CornOI </tag>
+            
             <tag> 线性代数 </tag>
             
             <tag> 矩阵乘法 </tag>
-            
-            <tag> CornOI </tag>
             
             <tag> 矩阵加速递推 </tag>
             
@@ -304,11 +304,11 @@
             
             <tag> 数学 </tag>
             
+            <tag> CornOI </tag>
+            
             <tag> 线性代数 </tag>
             
             <tag> 矩阵乘法 </tag>
-            
-            <tag> CornOI </tag>
             
         </tags>
       
@@ -333,11 +333,11 @@
       
         <tags>
             
-            <tag> 排列组合 </tag>
-            
             <tag> 图论 </tag>
             
             <tag> 最短路 </tag>
+            
+            <tag> 排列组合 </tag>
             
         </tags>
       
@@ -420,17 +420,17 @@
       
         <tags>
             
+            <tag> 图论 </tag>
+            
             <tag> 数学 </tag>
             
             <tag> 数论 </tag>
             
-            <tag> 图论 </tag>
-            
             <tag> 前缀和 </tag>
             
-            <tag> 树链剖分 </tag>
-            
             <tag> CornOI </tag>
+            
+            <tag> 树链剖分 </tag>
             
         </tags>
       
@@ -631,11 +631,11 @@
             
             <tag> 数据结构 </tag>
             
-            <tag> 线段树 </tag>
-            
             <tag> 图论 </tag>
             
             <tag> 最短路 </tag>
+            
+            <tag> 线段树 </tag>
             
             <tag> 线段树优化建图 </tag>
             
@@ -699,9 +699,9 @@
             
             <tag> 并查集 </tag>
             
-            <tag> 线段树 </tag>
-            
             <tag> 图论 </tag>
+            
+            <tag> 线段树 </tag>
             
             <tag> LCA </tag>
             
@@ -1848,9 +1848,9 @@
             
             <tag> 数据结构 </tag>
             
-            <tag> 线段树 </tag>
-            
             <tag> 图论 </tag>
+            
+            <tag> 线段树 </tag>
             
             <tag> 树链剖分 </tag>
             
