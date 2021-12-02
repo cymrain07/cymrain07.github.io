@@ -4,6 +4,37 @@
   
   
   <entry>
+    <title>「洛谷 P2656」采蘑菇</title>
+    <link href="/2021/12/02/lgP2656/"/>
+    <url>/2021/12/02/lgP2656/</url>
+    
+    <content type="html"><![CDATA[<p>首先用 Tarjan 求强连通分量。</p><p>对于每个强连通分量来说，因为可以在这个分量里无限次走直到把所有蘑菇采完，所以可以缩成一个点。<br>这个点的点权即为所有蘑菇的总和（每条边都要不断地乘上恢复系数直到变成 $0$）。<br>缩完点后整张图变成 DAG，可以 DP。<br>设 $f(x)$ 为从 $s$ 出发到达 $x$ 采的蘑菇的最多数量，$\textit{val}(x)$ 为 $x$ 点点权。</p><script type="math/tex; mode=display">f(v)=\max\{f(u)+(u,v)\}+\textit{val}(v)</script><p>注意事项：</p><ul><li>由于缩点后 $s$ 入度可能并不为 $0$，不能保证 $f(x)$ 是从 $s$ 出发，所以初始化 $f$ 为一个极小值，$f(s)\gets\textit{val}(s)$，这样就可以保证 $f(x)$ 是从 $s$ 出发的。</li><li>精度问题。每次乘一个小数精度会爆炸，所以把 $\lfloor x\times 0.?\rfloor$ 改成 $\lfloor\dfrac{x\times?}{10}\rfloor$。</li></ul><p>代码：</p><figure class="highlight cpp"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;bits/stdc++.h&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> N 80005</span><br><span class="hljs-keyword">int</span> dfn[N], low[N], col[N], cnt, tot;<br><span class="hljs-keyword">int</span> val[N];<br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">edge</span></span><br><span class="hljs-class">&#123;</span><br>    <span class="hljs-keyword">int</span> v, w, c;<br>&#125;;<br>vector&lt;edge&gt; e[N], e1[N];<br>stack&lt;<span class="hljs-keyword">int</span>&gt; stk;<br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">separate</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> v)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">while</span> (x) res += x, x = x * v / <span class="hljs-number">10</span>;<br>    <span class="hljs-keyword">return</span> res;<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">tarjan</span><span class="hljs-params">(<span class="hljs-keyword">int</span> u)</span></span><br><span class="hljs-function"></span>&#123;<br>    dfn[u] = low[u] = ++cnt;<br>    stk.<span class="hljs-built_in">push</span>(u);<br>    <span class="hljs-keyword">for</span> (edge i : e[u])<br>    &#123;<br>        <span class="hljs-keyword">int</span> v = i.v;<br>        <span class="hljs-keyword">if</span> (!dfn[v])<br>            <span class="hljs-built_in">tarjan</span>(v), low[u] = <span class="hljs-built_in">min</span>(low[u], low[v]);<br>        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (!col[v])<br>            low[u] = <span class="hljs-built_in">min</span>(low[u], dfn[v]);<br>    &#125;<br>    <span class="hljs-keyword">if</span> (dfn[u] == low[u])<br>    &#123;<br>        tot++;<br>        <span class="hljs-keyword">while</span> (<span class="hljs-number">1</span>)<br>        &#123;<br>            <span class="hljs-keyword">int</span> x = stk.<span class="hljs-built_in">top</span>();<br>            stk.<span class="hljs-built_in">pop</span>();<br>            col[x] = tot;<br>            <span class="hljs-keyword">if</span> (x == u) <span class="hljs-keyword">break</span>;<br>        &#125;<br>    &#125;<br>&#125;<br><span class="hljs-keyword">int</span> n, m, s;<br>queue&lt;<span class="hljs-keyword">int</span>&gt; q;<br><span class="hljs-keyword">int</span> f[N], in[N], ans;<br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">DP</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= tot; i++)<br>    &#123;<br>        f[i] = <span class="hljs-number">-0x3f3f3f3f</span>;<br>        <span class="hljs-keyword">if</span> (!in[i]) q.<span class="hljs-built_in">push</span>(i);<br>    &#125;<br>    s = col[s];<br>    f[s] = val[s];<br>    <span class="hljs-keyword">while</span> (!q.<span class="hljs-built_in">empty</span>())<br>    &#123;<br>        <span class="hljs-keyword">int</span> u = q.<span class="hljs-built_in">front</span>();<br>        q.<span class="hljs-built_in">pop</span>();<br>        <span class="hljs-keyword">for</span> (edge i : e1[u])<br>        &#123;<br>            <span class="hljs-keyword">int</span> v = i.v;<br>            f[v] = <span class="hljs-built_in">max</span>(f[v], f[u] + i.w + val[v]);<br>            in[v]--;<br>            <span class="hljs-keyword">if</span> (!in[v]) q.<span class="hljs-built_in">push</span>(v);<br>        &#125;<br>    &#125;<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    cin &gt;&gt; n &gt;&gt; m;<br>    <span class="hljs-keyword">while</span> (m--)<br>    &#123;<br>        <span class="hljs-keyword">int</span> u, v, w;<br>        <span class="hljs-keyword">double</span> c;<br>        cin &gt;&gt; u &gt;&gt; v &gt;&gt; w &gt;&gt; c;<br>        e[u].<span class="hljs-built_in">push_back</span>(&#123;v, w, (<span class="hljs-keyword">int</span>)(c * <span class="hljs-number">10</span>)&#125;);<br>    &#125;<br>    cin &gt;&gt; s;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++)<br>        <span class="hljs-keyword">if</span> (!dfn[i]) <span class="hljs-built_in">tarjan</span>(i);<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> u = <span class="hljs-number">1</span>; u &lt;= n; u++)<br>        <span class="hljs-keyword">for</span> (edge i : e[u])<br>        &#123;<br>            <span class="hljs-keyword">int</span> v = i.v;<br>            <span class="hljs-keyword">if</span> (col[u] == col[v])<br>                val[col[u]] += <span class="hljs-built_in">separate</span>(i.w, i.c);<br>            <span class="hljs-keyword">else</span><br>                e1[col[u]].<span class="hljs-built_in">push_back</span>(&#123;col[v], i.w, <span class="hljs-number">0</span>&#125;), in[col[v]]++;<br>        &#125;<br>    <span class="hljs-built_in">DP</span>();<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= tot; i++) ans = <span class="hljs-built_in">max</span>(ans, f[i]);<br>    cout &lt;&lt; ans;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></div></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>题解</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>图论</tag>
+      
+      <tag>动态规划</tag>
+      
+      <tag>DAG 上的 DP</tag>
+      
+      <tag>强连通分量</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>「Corn#20」C 程期末</title>
     <link href="/2021/11/07/Corn20-T2/"/>
     <url>/2021/11/07/Corn20-T2/</url>
@@ -107,9 +138,9 @@
       
       <tag>二分答案</tag>
       
-      <tag>前缀和</tag>
-      
       <tag>CornOI</tag>
+      
+      <tag>前缀和</tag>
       
     </tags>
     
@@ -122,7 +153,7 @@
     <link href="/2021/11/06/%E5%8C%96%E5%AD%A6%E6%96%B9%E7%A8%8B%E5%BC%8F/"/>
     <url>/2021/11/06/%E5%8C%96%E5%AD%A6%E6%96%B9%E7%A8%8B%E5%BC%8F/</url>
     
-    <content type="html"><![CDATA[<p>物质在氧气中燃烧：</p><script type="math/tex; mode=display">\ce{C +O2}\xlongequal{点燃}\ce{CO2}</script><script type="math/tex; mode=display">\ce{S +O2}\xlongequal{点燃}\ce{SO2}</script><script type="math/tex; mode=display">4\ce{P +}5\ce{O2}\xlongequal{点燃}2\ce{P2O5}</script><script type="math/tex; mode=display">3\ce{Fe +}2\ce{O2}\xlongequal{点燃}\ce{Fe3O4}</script><script type="math/tex; mode=display">2\ce{H2 +O2}\xlongequal{点燃}2\ce{H2O}</script><p>制取氧气：</p><script type="math/tex; mode=display">2\ce{KMnO4}\xlongequal{\triangle}\ce{K2MnO4 +MnO2 +O2 ^}</script><script type="math/tex; mode=display">2\ce{H2O2}\xlongequal{\ce{MnO2}}2\ce{H2O +O2 ^}</script><script type="math/tex; mode=display">2\ce{KClO3}\xlongequal[\triangle]{\ce{MnO2}}2\ce{KCl +}3\ce{O2 ^}</script><p>电解水：</p><script type="math/tex; mode=display">2\ce{H2O}\xlongequal{通电}2\ce{H2 ^ +O2 ^}</script><p>关于 $\ce{C,CO,CO2}$：</p><script type="math/tex; mode=display">\ce{C +}2\ce{CuO}\xlongequal{高温}2\ce{Cu +CO2 ^}</script><script type="math/tex; mode=display">3\ce{C +}2\ce{Fe2O3}\xlongequal{高温}4\ce{Fe +}3\ce{CO2 ^}</script><script type="math/tex; mode=display">2\ce{C +}\ce{Fe3O4}\xlongequal{高温}3\ce{Fe +}2\ce{CO2 ^}</script><script type="math/tex; mode=display">\ce{C +CO2}\xlongequal{高温}2\ce{CO}</script><script type="math/tex; mode=display">\ce{CaCO3}\xlongequal{高温}\ce{CaO +CO2 ^}</script><script type="math/tex; mode=display">\ce{CaCO3 +}2\ce{HCl}\xlongequal{}\ce{CaCl2 +H2O +CO2 ^}</script>]]></content>
+    <content type="html"><![CDATA[<p>物质在氧气中燃烧：</p><script type="math/tex; mode=display">\ce{C +O2}\xlongequal{点燃}\ce{CO2}</script><script type="math/tex; mode=display">\ce{S +O2}\xlongequal{点燃}\ce{SO2}</script><script type="math/tex; mode=display">4\ce{P +}5\ce{O2}\xlongequal{点燃}2\ce{P2O5}</script><script type="math/tex; mode=display">3\ce{Fe +}2\ce{O2}\xlongequal{点燃}\ce{Fe3O4}</script><script type="math/tex; mode=display">2\ce{H2 +O2}\xlongequal{点燃}2\ce{H2O}</script><p>制取氧气：</p><script type="math/tex; mode=display">2\ce{KMnO4}\xlongequal{\triangle}\ce{K2MnO4 +MnO2 +O2 ^}</script><script type="math/tex; mode=display">2\ce{H2O2}\xlongequal{\ce{MnO2}}2\ce{H2O +O2 ^}</script><script type="math/tex; mode=display">2\ce{KClO3}\xlongequal[\triangle]{\ce{MnO2}}2\ce{KCl +}3\ce{O2 ^}</script><p>电解水：</p><script type="math/tex; mode=display">2\ce{H2O}\xlongequal{通电}2\ce{H2 ^ +O2 ^}</script><p>关于 $\ce{C,CO,CO2}$：</p><script type="math/tex; mode=display">\ce{C +}2\ce{CuO}\xlongequal{高温}2\ce{Cu +CO2 ^}</script><script type="math/tex; mode=display">3\ce{C +}2\ce{Fe2O3}\xlongequal{高温}4\ce{Fe +}3\ce{CO2 ^}</script><script type="math/tex; mode=display">2\ce{C +}\ce{Fe3O4}\xlongequal{高温}3\ce{Fe +}2\ce{CO2 ^}</script><script type="math/tex; mode=display">\ce{C +CO2}\xlongequal{高温}2\ce{CO}</script><script type="math/tex; mode=display">\ce{CaCO3}\xlongequal{高温}\ce{CaO +CO2 ^}</script><script type="math/tex; mode=display">\ce{CaCO3 +}2\ce{HCl}\xlongequal{}\ce{CaCl2 +H2O +CO2 ^}</script><script type="math/tex; mode=display">\ce{CO2 +H2O}\xlongequal{}\ce{H2CO3}</script>]]></content>
     
     
     
@@ -428,9 +459,9 @@
       
       <tag>树链剖分</tag>
       
-      <tag>前缀和</tag>
-      
       <tag>CornOI</tag>
+      
+      <tag>前缀和</tag>
       
     </tags>
     
@@ -633,9 +664,9 @@
       
       <tag>图论</tag>
       
-      <tag>最短路</tag>
-      
       <tag>线段树</tag>
+      
+      <tag>最短路</tag>
       
       <tag>线段树优化建图</tag>
       
@@ -697,11 +728,11 @@
       
       <tag>数据结构</tag>
       
-      <tag>并查集</tag>
-      
       <tag>图论</tag>
       
       <tag>线段树</tag>
+      
+      <tag>并查集</tag>
       
       <tag>LCA</tag>
       
