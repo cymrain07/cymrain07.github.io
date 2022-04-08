@@ -4,6 +4,41 @@
   
     
     <entry>
+      <title>「ONTAK2010」Peaks（加强版）</title>
+      <link href="/2022/04/08/3012/"/>
+      <url>/2022/04/08/3012/</url>
+      
+        <content type="html"><![CDATA[<p>因为只能走边权 $&lt;x$ 的边，很明显是 $\text{kruskal}$ 重构树。<br>建出树后，对于每次询问，倍增找到可以走的连通块对应的节点，问题转变为该节点对应的原图节点权值第 $k$ 大。<br>使用线段树合并，每个父亲节点对应的权值线段树由左右儿子合并得到。<br>查询时在父亲节点对应的线段树上二分即可。<br>复杂度 $O(m\log m+(n+q)\log n)$。</p><figure class="highlight cpp"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;bits/stdc++.h&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> N 100005</span><br><span class="hljs-comment">//namespace IO</span><br><span class="hljs-keyword">int</span> rt[N &lt;&lt; <span class="hljs-number">1</span>];<br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">ValSegT</span></span><br><span class="hljs-class">&#123;</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> mid ((l + r) &gt;&gt; 1)</span><br>    <span class="hljs-keyword">int</span> ls[N &lt;&lt; <span class="hljs-number">6</span>], rs[N &lt;&lt; <span class="hljs-number">6</span>], sum[N &lt;&lt; <span class="hljs-number">6</span>];<br>    <span class="hljs-keyword">int</span> tot;<br>    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">mrg</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y, <span class="hljs-keyword">int</span> l, <span class="hljs-keyword">int</span> r)</span></span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">if</span> (!x || !y) <span class="hljs-keyword">return</span> x + y;<br>        <span class="hljs-keyword">int</span> z = ++tot;<br>        sum[z] = sum[x] + sum[y];<br>        <span class="hljs-keyword">if</span> (l == r) <span class="hljs-keyword">return</span> z;<br>        ls[z] = <span class="hljs-built_in">mrg</span>(ls[x], ls[y], l, mid);<br>        rs[z] = <span class="hljs-built_in">mrg</span>(rs[x], rs[y], mid + <span class="hljs-number">1</span>, r);<br>        <span class="hljs-keyword">return</span> z;<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">upd</span><span class="hljs-params">(<span class="hljs-keyword">int</span> &amp;pos, <span class="hljs-keyword">int</span> l, <span class="hljs-keyword">int</span> r, <span class="hljs-keyword">int</span> p)</span></span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">if</span> (!pos) pos = ++tot;<br>        sum[pos]++;<br>        <span class="hljs-keyword">if</span> (l == r) <span class="hljs-keyword">return</span>;<br>        <span class="hljs-keyword">if</span> (p &lt;= mid) <span class="hljs-built_in">upd</span>(ls[pos], l, mid, p);<br>        <span class="hljs-keyword">if</span> (p &gt; mid) <span class="hljs-built_in">upd</span>(rs[pos], mid + <span class="hljs-number">1</span>, r, p);<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">qry</span><span class="hljs-params">(<span class="hljs-keyword">int</span> pos, <span class="hljs-keyword">int</span> l, <span class="hljs-keyword">int</span> r, <span class="hljs-keyword">int</span> k)</span></span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">if</span> (sum[pos] &lt; k) <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>        <span class="hljs-keyword">if</span> (l == r) <span class="hljs-keyword">return</span> l;<br>        <span class="hljs-keyword">if</span> (sum[pos] - sum[ls[pos]] &gt;= k) <span class="hljs-keyword">return</span> <span class="hljs-built_in">qry</span>(rs[pos], mid + <span class="hljs-number">1</span>, r, k);<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">qry</span>(ls[pos], l, mid, k - sum[pos] + sum[ls[pos]]);<br>    &#125;<br>&#125; T;<br><span class="hljs-keyword">int</span> w[N &lt;&lt; <span class="hljs-number">1</span>];<br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Tree</span></span><br><span class="hljs-class">&#123;</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> L 20</span><br>    vector&lt;<span class="hljs-keyword">int</span>&gt; e[N &lt;&lt; <span class="hljs-number">1</span>];<br>    <span class="hljs-keyword">int</span> fa[N &lt;&lt; <span class="hljs-number">1</span>][L];<br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">add</span><span class="hljs-params">(<span class="hljs-keyword">int</span> u, <span class="hljs-keyword">int</span> v)</span> </span>&#123; e[u].<span class="hljs-built_in">push_back</span>(v), e[v].<span class="hljs-built_in">push_back</span>(u); &#125;<br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">dfs</span><span class="hljs-params">(<span class="hljs-keyword">int</span> u, <span class="hljs-keyword">int</span> f)</span></span><br><span class="hljs-function">    </span>&#123;<br>        fa[u][<span class="hljs-number">0</span>] = f;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; L; i++) fa[u][i] = fa[fa[u][i - <span class="hljs-number">1</span>]][i - <span class="hljs-number">1</span>];<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> v : e[u])<br>            <span class="hljs-keyword">if</span> (v != f) <span class="hljs-built_in">dfs</span>(v, u);<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">find</span><span class="hljs-params">(<span class="hljs-keyword">int</span> u, <span class="hljs-keyword">int</span> x)</span></span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = L - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span>; i--)<br>            <span class="hljs-keyword">if</span> (fa[u][i] &amp;&amp; w[fa[u][i]] &lt;= x) u = fa[u][i];<br>        <span class="hljs-keyword">return</span> u;<br>    &#125;<br>&#125; Tr;<br><span class="hljs-keyword">int</span> n, m, q;<br><span class="hljs-keyword">int</span> tot, cnt, p, K;<br><span class="hljs-keyword">int</span> h[N], h1[N];<br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">edge</span></span><br><span class="hljs-class">&#123;</span><br>    <span class="hljs-keyword">int</span> u, v, w;<br>    <span class="hljs-keyword">bool</span> <span class="hljs-keyword">operator</span>&lt;(<span class="hljs-keyword">const</span> edge &amp;x) <span class="hljs-keyword">const</span> &#123; <span class="hljs-keyword">return</span> w &lt; x.w; &#125;<br>&#125; e[N * <span class="hljs-number">5</span>];<br><span class="hljs-keyword">int</span> fa[N];<br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">find</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span> </span>&#123; <span class="hljs-keyword">return</span> x == fa[x] ? x : fa[x] = <span class="hljs-built_in">find</span>(fa[x]); &#125;<br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">kruskal</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-built_in">sort</span>(e + <span class="hljs-number">1</span>, e + m + <span class="hljs-number">1</span>);<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++) fa[i] = i, T.<span class="hljs-built_in">upd</span>(rt[i], <span class="hljs-number">1</span>, K, h[i]);<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= m; i++)<br>    &#123;<br>        <span class="hljs-keyword">int</span> u = <span class="hljs-built_in">find</span>(e[i].u), v = <span class="hljs-built_in">find</span>(e[i].v);<br>        <span class="hljs-keyword">if</span> (u == v) <span class="hljs-keyword">continue</span>;<br>        cnt++, tot++;<br>        fa[u] = fa[v] = fa[tot] = tot, w[tot] = e[i].w;<br>        Tr.<span class="hljs-built_in">add</span>(u, tot), Tr.<span class="hljs-built_in">add</span>(v, tot);<br>        rt[tot] = T.<span class="hljs-built_in">mrg</span>(rt[u], rt[v], <span class="hljs-number">1</span>, K);<br>        <span class="hljs-keyword">if</span> (cnt == n - <span class="hljs-number">1</span>) <span class="hljs-keyword">break</span>;<br>    &#125;<br>&#125;<br><span class="hljs-keyword">int</span> ans;<br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-built_in">read</span>(n), <span class="hljs-built_in">read</span>(m), <span class="hljs-built_in">read</span>(q);<br>    tot = n;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++) <span class="hljs-built_in">read</span>(h[i]), h1[i] = h[i];<br>    <span class="hljs-built_in">sort</span>(h1 + <span class="hljs-number">1</span>, h1 + n + <span class="hljs-number">1</span>), K = <span class="hljs-built_in">unique</span>(h1 + <span class="hljs-number">1</span>, h1 + n + <span class="hljs-number">1</span>) - h1 - <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++)<br>        h[i] = <span class="hljs-built_in">lower_bound</span>(h1 + <span class="hljs-number">1</span>, h1 + K + <span class="hljs-number">1</span>, h[i]) - h1;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= m; i++) <span class="hljs-built_in">read</span>(e[++p].u), <span class="hljs-built_in">read</span>(e[p].v), <span class="hljs-built_in">read</span>(e[p].w);<br>    <span class="hljs-built_in">kruskal</span>();<br>    Tr.<span class="hljs-built_in">dfs</span>(tot, <span class="hljs-number">0</span>);<br>    <span class="hljs-keyword">while</span> (q--)<br>    &#123;<br>        <span class="hljs-keyword">int</span> u, x, k;<br>        <span class="hljs-built_in">read</span>(u), <span class="hljs-built_in">read</span>(x), <span class="hljs-built_in">read</span>(k);<br>        u = u ^ ans, k = k ^ ans, x = x ^ ans;<br>        ans = T.<span class="hljs-built_in">qry</span>(rt[Tr.<span class="hljs-built_in">find</span>(u, x)], <span class="hljs-number">1</span>, K, k);<br>        <span class="hljs-keyword">if</span> (ans != <span class="hljs-number">-1</span>) ans = h1[ans];<br>        <span class="hljs-built_in">enter</span>(ans);<br>        <span class="hljs-keyword">if</span> (ans == <span class="hljs-number">-1</span>) ans = <span class="hljs-number">0</span>;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></div></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 题解 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 数据结构 </tag>
+            
+            <tag> 图论 </tag>
+            
+            <tag> 线段树 </tag>
+            
+            <tag> kruskal重构树 </tag>
+            
+            <tag> 倍增 </tag>
+            
+            <tag> 线段树合并 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>「NOI2014」魔法森林</title>
       <link href="/2022/02/27/267-C/"/>
       <url>/2022/02/27/267-C/</url>
@@ -169,9 +204,9 @@
             
             <tag> 二分答案 </tag>
             
-            <tag> 前缀和 </tag>
-            
             <tag> CornOI </tag>
+            
+            <tag> 前缀和 </tag>
             
         </tags>
       
@@ -211,9 +246,9 @@
             
             <tag> 数据结构 </tag>
             
-            <tag> 堆 </tag>
-            
             <tag> 前缀和 </tag>
+            
+            <tag> 堆 </tag>
             
         </tags>
       
@@ -242,9 +277,9 @@
             
             <tag> 数论 </tag>
             
-            <tag> CornOI </tag>
-            
             <tag> 倍增 </tag>
+            
+            <tag> CornOI </tag>
             
         </tags>
       
@@ -269,9 +304,9 @@
       
         <tags>
             
-            <tag> 数据结构 </tag>
-            
             <tag> 数学 </tag>
+            
+            <tag> 数据结构 </tag>
             
             <tag> 线段树 </tag>
             
@@ -360,9 +395,9 @@
       
         <tags>
             
-            <tag> 数据结构 </tag>
-            
             <tag> 数学 </tag>
+            
+            <tag> 数据结构 </tag>
             
             <tag> 线段树 </tag>
             
@@ -490,9 +525,9 @@
             
             <tag> 树链剖分 </tag>
             
-            <tag> 前缀和 </tag>
-            
             <tag> CornOI </tag>
+            
+            <tag> 前缀和 </tag>
             
         </tags>
       
@@ -759,11 +794,11 @@
             
             <tag> 数据结构 </tag>
             
-            <tag> 并查集 </tag>
-            
             <tag> 图论 </tag>
             
             <tag> 线段树 </tag>
+            
+            <tag> 并查集 </tag>
             
             <tag> LCA </tag>
             
@@ -861,11 +896,11 @@
       
         <tags>
             
-            <tag> 二分答案 </tag>
-            
             <tag> 数学 </tag>
             
             <tag> 排列组合 </tag>
+            
+            <tag> 二分答案 </tag>
             
         </tags>
       
@@ -1653,9 +1688,9 @@
       
         <tags>
             
-            <tag> 数据结构 </tag>
-            
             <tag> 数学 </tag>
+            
+            <tag> 数据结构 </tag>
             
             <tag> 线段树 </tag>
             
